@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Deja de ser tú · Joe Dispenza | PWA Cuba</title>
     <meta name="description" content="Análisis profundo de 'Deja de ser tú' de Joe Dispenza, adaptado al contexto cubano. PWA con audio offline.">
-    <!-- Icono unificado (mismo que el de la app) -->
+    <!-- Icono unificado -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%231A3652;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%234A7A9C;stop-opacity:1' /%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='48' fill='url(%23grad)'/%3E%3Cpath fill='%23F2C94C' d='M35 42 L65 42 L62 58 L38 58 Z'/%3E%3Cpath fill='%23FFFFFF' d='M48 30 L52 30 L52 42 L48 42 Z M48 58 L52 58 L52 70 L48 70 Z'/%3E%3C/svg%3E">
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%231A3652;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%234A7A9C;stop-opacity:1' /%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='48' fill='url(%23grad)'/%3E%3Cpath fill='%23F2C94C' d='M35 42 L65 42 L62 58 L38 58 Z'/%3E%3Cpath fill='%23FFFFFF' d='M48 30 L52 30 L52 42 L48 42 Z M48 58 L52 58 L52 70 L48 70 Z'/%3E%3C/svg%3E">
     <style>
@@ -93,6 +93,7 @@
         .btn-stop { background: #B86B6B; }
         .btn-download { background: #2E7D32; }
         .btn-share { background: #25D366; }
+        .btn-install { background: #F2C94C; color: #1A3652; font-weight: bold; }
         .pref-bar {
             background: #F7F9FC;
             border-radius: 20px;
@@ -152,6 +153,15 @@
             font-size: 0.8rem;
             margin-top: 0.5rem;
         }
+        .install-banner {
+            background: #F2C94C20;
+            border: 1px solid #F2C94C;
+            border-radius: 60px;
+            padding: 0.4rem 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 0.75rem;
+        }
         @media (max-width: 600px) {
             body { padding: 0.5rem; }
             .content { padding: 0.9rem; }
@@ -179,6 +189,7 @@
                 <button id="stopBtn" class="btn-stop">⏹️ Detener</button>
                 <button id="downloadBtn" class="btn-download">📥 Descargar texto</button>
                 <button id="shareBtn" class="btn-share">📱 Compartir</button>
+                <button id="installBtn" class="btn-install" style="display:none;">📲 Instalar app</button>
             </div>
         </div>
         <div class="pref-bar">
@@ -345,14 +356,12 @@
         // ========== COMPARTIR ==========
         function compartir() {
             const texto = obtenerTextoCompleto();
-            // Usar Web Share API si está disponible (móviles)
             if (navigator.share) {
                 navigator.share({
                     title: 'Deja de ser tú · Joe Dispenza',
                     text: texto.substring(0, 2000),
                 }).catch(() => {});
             } else {
-                // Fallback a WhatsApp
                 const url = `https://wa.me/?text=${encodeURIComponent(texto.substring(0, 2000))}`;
                 window.open(url, '_blank');
             }
@@ -362,6 +371,27 @@
                     document.getElementById('prefMsg').innerText = '⚡';
             }, 2000);
         }
+        
+        // ========== INSTALACIÓN PWA ==========
+        let deferredPrompt;
+        const installBtn = document.getElementById('installBtn');
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBtn.style.display = 'inline-flex';
+        });
+        
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    installBtn.style.display = 'none';
+                }
+                deferredPrompt = null;
+            }
+        });
         
         // ========== PREFERENCIAS MODO TEXTO ==========
         const textos = ['introText', 'temaText', 'beneficiosText', 'planText', 'conclusionText'].map(id => document.getElementById(id));
@@ -402,7 +432,6 @@
             document.getElementById('downloadBtn').addEventListener('click', descargarTexto);
             document.getElementById('shareBtn').addEventListener('click', compartir);
             
-            // Estado conexión
             window.addEventListener('online', () => document.getElementById('connStatus').innerHTML = '🟢 En línea');
             window.addEventListener('offline', () => document.getElementById('connStatus').innerHTML = '📴 Offline');
         }
@@ -424,25 +453,52 @@
             });
         }
         
-        // ========== SERVICE WORKER Y MANIFEST ==========
+        // ========== SERVICE WORKER (con skipWaiting y claim) ==========
         if ('serviceWorker' in navigator) {
             const swCode = `
-                const CACHE = 'dejate-pwa-v5';
-                self.addEventListener('install', e => e.waitUntil(caches.open(CACHE).then(c => c.addAll(['./', self.location.origin + '/']))));
-                self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r => r || fetch(e.request).catch(() => {
-                    if(e.request.mode === 'navigate') return caches.match('./');
-                    return new Response('Offline', {status:404});
-                }))));
-                self.addEventListener('activate', e => e.waitUntil(caches.keys().then(keys => Promise.all(keys.map(k => k !== CACHE && caches.delete(k))))));
-                self.skipWaiting();
+                const CACHE_NAME = 'dejate-pwa-v6';
+                const urlsToCache = ['./', './index.html', self.location.origin + '/'];
+                
+                self.addEventListener('install', event => {
+                    event.waitUntil(
+                        caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
+                    );
+                    self.skipWaiting();
+                });
+                
+                self.addEventListener('fetch', event => {
+                    event.respondWith(
+                        caches.match(event.request).then(response => {
+                            if (response) return response;
+                            return fetch(event.request).catch(() => {
+                                if (event.request.mode === 'navigate') {
+                                    return caches.match('./');
+                                }
+                                return new Response('Offline', { status: 404 });
+                            });
+                        })
+                    );
+                });
+                
+                self.addEventListener('activate', event => {
+                    event.waitUntil(
+                        caches.keys().then(keys => {
+                            return Promise.all(keys.map(key => {
+                                if (key !== CACHE_NAME) return caches.delete(key);
+                            }));
+                        })
+                    );
+                    self.clients.claim();
+                });
             `;
             const blob = new Blob([swCode], { type: 'application/javascript' });
             const swUrl = URL.createObjectURL(blob);
             navigator.serviceWorker.register(swUrl).then(reg => {
-                console.log('SW registrado');
-            }).catch(e => console.warn);
+                console.log('✅ Service Worker registrado');
+            }).catch(err => console.warn('❌ SW error:', err));
         }
         
+        // ========== MANIFEST ==========
         const manifestData = {
             name: "Deja de ser tú · Joe Dispenza · Cuba",
             short_name: "Deja de ser tú",
