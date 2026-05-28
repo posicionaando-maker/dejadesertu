@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Deja de ser tú · Joe Dispenza | PWA Cuba</title>
+    <meta name="description" content="Análisis profundo de 'Deja de ser tú' de Joe Dispenza, adaptado al contexto cubano. Neuroplasticidad, meditación y transformación personal. PWA offline.">
+    <!-- Icono SVG inspirado en la portada (cerebro + cambio) con doble clic para ayuda -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%231A3652;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%234A7A9C;stop-opacity:1' /%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='48' fill='url(%23grad)'/%3E%3Cpath fill='%23F2C94C' d='M35 42 L65 42 L62 58 L38 58 Z'/%3E%3Cpath fill='%23FFFFFF' d='M48 30 L52 30 L52 42 L48 42 Z M48 58 L52 58 L52 70 L48 70 Z'/%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%231A3652;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%234A7A9C;stop-opacity:1' /%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='48' fill='url(%23grad)'/%3E%3Cpath fill='%23F2C94C' d='M35 42 L65 42 L62 58 L38 58 Z'/%3E%3Cpath fill='%23FFFFFF' d='M48 30 L52 30 L52 42 L48 42 Z M48 58 L52 58 L52 70 L48 70 Z'/%3E%3C/svg%3E">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif;
+            background: #F0F4F8;
+            color: #1A2C3A;
+            line-height: 1.6;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .app-container {
+            max-width: 780px;
+            width: 100%;
+            background: #FFFFFF;
+            border-radius: 32px;
+            box-shadow: 0 16px 32px rgba(0,0,0,0.08);
+            overflow: hidden;
+            position: relative;
+        }
+        .header {
+            background: linear-gradient(135deg, #1A3652 0%, #2C5282 100%);
+            padding: 1.2rem 1.5rem;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        /* Icono clickeable para ayuda (doble clic) */
+        .help-icon {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.1s;
+            user-select: none;
+        }
+        .help-icon:active {
+            transform: scale(0.95);
+        }
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+        .header p {
+            font-size: 0.75rem;
+            opacity: 0.9;
+        }
+        .status {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 0.2rem 1rem;
+            border-radius: 60px;
+            font-size: 0.65rem;
+            margin-top: 0.4rem;
+        }
+        .content {
+            padding: 1.3rem;
+        }
+        .search-section {
+            background: #F7F9FC;
+            border-radius: 24px;
+            padding: 0.9rem;
+            margin-bottom: 1.2rem;
+        }
+        .search-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .search-group input {
+            flex: 1;
+            padding: 0.65rem 1rem;
+            border: 2px solid #DCE3EC;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-family: inherit;
+            background: white;
+        }
+        .search-group input:focus {
+            border-color: #2C5282;
+            outline: none;
+        }
+        .search-group button {
+            background: #2C5282;
+            border: none;
+            color: white;
+            padding: 0.65rem 1.3rem;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .analysis-card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.2rem;
+            border: 1px solid #E2E8F0;
+        }
+        .book-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #1A3652;
+            margin-bottom: 0.9rem;
+            border-bottom: 3px solid #F2C94C;
+            padding-bottom: 0.4rem;
+        }
+        .section {
+            margin-bottom: 1rem;
+        }
+        .section h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #2C5282;
+            margin-bottom: 0.3rem;
+        }
+        .section p {
+            font-size: 0.9rem;
+            text-align: justify;
+            color: #2D3748;
+        }
+        .audio-buttons {
+            margin-top: 1rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid #E2E8F0;
+            display: flex;
+            gap: 0.7rem;
+            flex-wrap: wrap;
+        }
+        button {
+            background: #2C5282;
+            border: none;
+            color: white;
+            padding: 0.45rem 1.1rem;
+            border-radius: 60px;
+            font-size: 0.78rem;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .btn-stop {
+            background: #B86B6B;
+        }
+        .pref-bar {
+            background: #F7F9FC;
+            border-radius: 20px;
+            padding: 0.6rem 1rem;
+            margin-top: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.73rem;
+        }
+        footer {
+            text-align: center;
+            font-size: 0.62rem;
+            padding: 0.7rem;
+            color: #8DA1B5;
+            border-top: 1px solid #E2E8F0;
+        }
+        /* Modal de ayuda */
+        .help-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.2s;
+        }
+        .help-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .help-content {
+            background: white;
+            max-width: 320px;
+            width: 85%;
+            border-radius: 32px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .help-content h3 {
+            color: #1A3652;
+            margin-bottom: 0.8rem;
+        }
+        .help-content p {
+            font-size: 0.85rem;
+            margin: 0.6rem 0;
+            text-align: left;
+        }
+        .help-content button {
+            margin-top: 1rem;
+            background: #2C5282;
+        }
+        @media (max-width: 600px) {
+            body { padding: 0.5rem; }
+            .content { padding: 0.9rem; }
+            .book-title { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <div class="header">
+        <div class="help-icon" id="helpIcon">❔</div>
+        <h1>🧠 Deja de ser tú</h1>
+        <p>Joe Dispenza · Neuroplasticidad · Transformación</p>
+        <div class="status" id="connStatus">🟢 En línea</div>
+    </div>
+    <div class="content">
+        <div class="search-section">
+            <div class="search-group">
+                <input type="text" id="bookInput" placeholder="Escribe un título... (ej: deja de ser tú, dispenza)" autocomplete="off" list="bookList">
+                <button id="searchBtn">📖 Analizar</button>
+            </div>
+        </div>
+        <div class="analysis-card">
+            <div class="book-title" id="bookTitle">Deja de ser tú · Joe Dispenza</div>
+            <div class="section"><h3>📖 Introducción</h3><p id="introText">Cargando...</p></div>
+            <div class="section"><h3>🎯 Temática principal</h3><p id="temaText">—</p></div>
+            <div class="section"><h3>✅ Beneficios (contexto cubano)</h3><p id="beneficiosText">—</p></div>
+            <div class="section"><h3>📋 Plan de acción detallado</h3><p id="planText">—</p></div>
+            <div class="section"><h3>🎓 Conclusiones</h3><p id="conclusionText">—</p></div>
+            <div class="audio-buttons">
+                <button id="audioBtn">🔊 Escuchar análisis (1000 palabras)</button>
+                <button id="stopBtn" class="btn-stop">⏹️ Detener</button>
+            </div>
+        </div>
+        <div class="pref-bar">
+            <span>📖 Modo:</span>
+            <label><input type="radio" name="textMode" value="normal" checked> Normal</label>
+            <label><input type="radio" name="textMode" value="large"> Grande</label>
+            <button id="saveModeBtn">Guardar</button>
+            <span id="prefMsg">⚡</span>
+        </div>
+        <footer>📴 Offline · Doble clic en ❔ para ayuda · Instálala como app</footer>
+    </div>
+</div>
+
+<!-- Modal de ayuda -->
+<div id="helpModal" class="help-modal">
+    <div class="help-content">
+        <h3>❔ Ayuda rápida</h3>
+        <p><strong>🎧 Escuchar:</strong> presiona "Escuchar análisis".</p>
+        <p><strong>📖 Modo grande:</strong> activa "Grande" y guarda.</p>
+        <p><strong>📴 Offline:</strong> funciona sin internet.</p>
+        <p><strong>📲 Instalar:</strong> en Chrome/Edge, menú → "Instalar app".</p>
+        <p><strong>🔒 Protección:</strong> clic derecho y atajos de copia están deshabilitados.</p>
+        <button id="closeHelpBtn">Entendido</button>
+    </div>
+</div>
+
+<datalist id="bookList"><option value="Deja de ser tú · Joe Dispenza"></datalist>
+
+<script>
+    (function(){
+        // ---------- CONTENIDO EXCLUSIVO: DEJA DE SER TÚ (1000 PALABRAS, CONTEXTO CUBANO) ----------
+        const tituloFijo = "Deja de ser tú (Breaking the Habit of Being Yourself) · Joe Dispenza";
+        
+        const introduccion = `"Deja de ser tú" es una obra revolucionaria del Dr. Joe Dispenza, quiropráctico y neurocientífico. Publicado originalmente en dos mil doce, el libro explica cómo la neuroplasticidad nos permite romper con los patrones automáticos de pensamiento y emoción que nos mantienen atrapados en la misma versión de nosotros mismos. Para el lector cubano, este mensaje cobra una fuerza especial: en un entorno donde los recursos externos son limitados, la herramienta más poderosa de transformación está en la mente. Dispenza no ofrece recetas mágicas, sino un método basado en la meditación, la repetición consciente y la reconexión emocional. Aceptar que podemos cambiar nuestra personalidad es el primer paso para dejar de sobrevivir y empezar a vivir con propósito.`;
+        
+        const tematica = `La temática central del libro gira en torno a la idea de que somos esclavos de un "yo" construido por experiencias pasadas, hábitos inconscientes y emociones repetitivas. Dispenza explica que la personalidad, entendida como la combinación de pensamientos, sentimientos y comportamientos, determina nuestra realidad personal. Si siempre pensamos y sentimos igual, obtenemos siempre los mismos resultados. La buena noticia es que el cerebro es maleable: cada pensamiento genera conexiones neuronales nuevas. Para cambiar la personalidad, debemos aprender a pensar y sentir como la persona que queremos ser, incluso antes de que las circunstancias externas cambien. El libro propone un puente entre la ciencia y la espiritualidad, demostrando con estudios de neuroimagen cómo la meditación coherente puede modificar la materia cerebral. Para Cuba, donde muchas veces la vida parece repetir patrones de escasez o resignación, esta enseñanza es un faro: podemos desprogramar la queja, la impotencia o el miedo y ensayar mentalmente una vida de abundancia, creatividad y cooperación.`;
+        
+        const beneficios = `En el contexto cubano, los beneficios de aplicar este libro son profundamente prácticos. Primero, desarrollas una resiliencia activa: en lugar de reaccionar automáticamente a la falta de transporte, las colas o las noticias agobiantes, aprendes a pausar y elegir una respuesta elevada. Esto reduce el estrés crónico, tan dañino para la salud. Segundo, mejoras tus relaciones familiares y de amistad: al cambiar tus emociones habituales, dejas de proyectar frustración y abres espacio para la comunicación honesta y el apoyo mutuo. Tercero, puedes generar nuevas oportunidades laborales o de emprendimiento: al modificar tus pensamientos sobre el dinero y la creatividad, dejas de ver solo obstáculos y comienzas a identificar soluciones. Cuarto, fortaleces tu salud física: Dispenza documenta casos de personas que revirtieron enfermedades al cambiar su estado mental y emocional. En Cuba, donde el acceso a medicamentos puede ser complicado, la prevención y la autogestión de la salud emocional son herramientas de soberanía personal. Quinto, recuperas la esperanza activa: entender que tu identidad no está fijada para siempre te impulsa a salir de la queja y pasar a la acción con lo que tienes a mano.`;
+        
+        const planAccion = `Para integrar "Deja de ser tú" en tu vida cotidiana en Cuba, te propongo un plan de acción realista con pasos concretos. Primero, crea un espacio de meditación en tu hogar, aunque sea una silla junto a la ventana. Dedica quince minutos cada mañana a cerrar los ojos y observar tus pensamientos sin juzgarlos. No necesitas aplicación de pago ni música especial; el silencio basta. Segundo, durante el día, cada vez que sientas una emoción negativa recurrente (impaciencia en la cola, impotencia por la falta de algo, envidia), pausa y respira profundo tres veces. Pregúntate: ¿esta emoción me define o puedo elegir otra? Tercero, cada noche, antes de dormir, dedica cinco minutos a visualizar la persona que quieres ser. Imagina con detalles cómo actúa, cómo habla, cómo resuelve un problema cotidiano. Dispenza llama a esto "ensayar mentalmente". Cuarto, escribe en una libreta (puede ser un papel reciclado) tres pensamientos limitantes que quieras cambiar, y junto a cada uno escribe su versión transformada. Por ejemplo: "No tengo recursos" cámbialo por "Soy creativo para resolver con lo que existe". Lee esa lista cada mañana. Quinto, forma un pequeño grupo de intercambio con amigos o vecinos interesados en el desarrollo personal. Una vez por semana, reúnanse durante una hora para compartir sus prácticas y avances. El apoyo social multiplica los resultados. Sexto, reduce el consumo de noticias negativas al mínimo indispensable; cada minuto que pasas en quejas fortalece el viejo circuito neuronal. En su lugar, lee o escucha contenido inspirador. Séptimo, cada domingo haz una revisión de la semana: ¿qué emoción dominó? ¿qué cambio lograste? Celebra los pequeños éxitos.`;
+        
+        const conclusion = `En conclusión, "Deja de ser tú" nos recuerda que el cambio no es un lujo de países ricos, sino una capacidad innata del ser humano. En Cuba, con todos los desafíos cotidianos, la herramienta más valiosa sigue siendo nuestra mente. No se trata de negar la realidad, sino de dejar de ser prisioneros de una versión antigua de nosotros mismos. Joe Dispenza nos invita a convertirnos en científicos de nuestra propia vida: experimentar, fallar, ajustar y volver a intentar. La neuroplasticidad no distingue entre clases sociales; cada pensamiento repetido es un ladrillo que construye un nuevo yo. Empieza hoy con un solo minuto de pausa consciente. No necesitas permiso, ni inversión, ni tecnología de punta. Solo la decisión de romper el hábito de ser quien ya no quieres ser. El resto es práctica. Y como dicen en Cuba: "echando pa'lante, con fe y constancia, la mente se transforma y la vida también".`;
+        
+        // Mostrar análisis
+        function mostrarAnalisis() {
+            document.getElementById('bookTitle').innerText = tituloFijo;
+            document.getElementById('introText').innerText = introduccion;
+            document.getElementById('temaText').innerText = tematica;
+            document.getElementById('beneficiosText').innerText = beneficios;
+            document.getElementById('planText').innerText = planAccion;
+            document.getElementById('conclusionText').innerText = conclusion;
+            localStorage.setItem('ultimo_libro', tituloFijo);
+            localStorage.setItem('analisis_cache', JSON.stringify({introduccion, tematica, beneficios, planAccion, conclusion}));
+        }
+        
+        function cargarOffline() {
+            const cache = localStorage.getItem('analisis_cache');
+            if (cache) {
+                const c = JSON.parse(cache);
+                document.getElementById('bookTitle').innerText = tituloFijo;
+                document.getElementById('introText').innerText = c.introduccion;
+                document.getElementById('temaText').innerText = c.tematica;
+                document.getElementById('beneficiosText').innerText = c.beneficios;
+                document.getElementById('planText').innerText = c.planAccion;
+                document.getElementById('conclusionText').innerText = c.conclusion;
+            } else {
+                mostrarAnalisis();
+            }
+            document.getElementById('bookInput').value = tituloFijo;
+        }
+        
+        // ---------- DOBLE CLIC EN ICONO PARA AYUDA ----------
+        const helpIcon = document.getElementById('helpIcon');
+        const helpModal = document.getElementById('helpModal');
+        const closeHelpBtn = document.getElementById('closeHelpBtn');
+        
+        let clickTimer = null;
+        helpIcon.addEventListener('click', (e) => {
+            if (clickTimer) {
+                clearTimeout(clickTimer);
+                clickTimer = null;
+                // Doble clic: mostrar ayuda
+                helpModal.classList.add('show');
+            } else {
+                clickTimer = setTimeout(() => {
+                    clickTimer = null;
+                }, 200);
+            }
+        });
+        
+        function cerrarAyuda() {
+            helpModal.classList.remove('show');
+        }
+        closeHelpBtn.addEventListener('click', cerrarAyuda);
+        helpModal.addEventListener('click', (e) => {
+            if (e.target === helpModal) cerrarAyuda();
+        });
+        
+        // ---------- AUDIO ----------
+        const synth = window.speechSynthesis;
+        let utteranceActual = null;
+        
+        function obtenerTextoAudio() {
+            const tit = document.getElementById('bookTitle').innerText;
+            const intro = document.getElementById('introText').innerText;
+            const tema = document.getElementById('temaText').innerText;
+            const bene = document.getElementById('beneficiosText').innerText;
+            const plan = document.getElementById('planText').innerText;
+            const concl = document.getElementById('conclusionText').innerText;
+            return `Libro: ${tit}. Introducción: ${intro}. Temática principal: ${tema}. Beneficios en contexto cubano: ${bene}. Plan de acción detallado: ${plan}. Conclusiones: ${concl}`;
+        }
+        
+        function hablar() {
+            if (synth.speaking || synth.pending) synth.cancel();
+            const texto = obtenerTextoAudio();
+            if (!texto.trim()) return;
+            const utterance = new SpeechSynthesisUtterance(texto);
+            utterance.lang = 'es-ES';
+            utterance.rate = 0.88;
+            utterance.pitch = 1.0;
+            utterance.onend = () => { utteranceActual = null; };
+            utterance.onerror = () => { utteranceActual = null; };
+            utteranceActual = utterance;
+            synth.speak(utterance);
+            document.getElementById('prefMsg').innerText = '🔊 Leyendo...';
+            setTimeout(() => {
+                if (document.getElementById('prefMsg').innerText === '🔊 Leyendo...')
+                    document.getElementById('prefMsg').innerText = '⚡';
+            }, 5000);
+        }
+        
+        function detener() {
+            if (synth.speaking || synth.pending) {
+                synth.cancel();
+                utteranceActual = null;
+                document.getElementById('prefMsg').innerText = '⏹️ Detenido';
+                setTimeout(() => {
+                    if (document.getElementById('prefMsg').innerText === '⏹️ Detenido')
+                        document.getElementById('prefMsg').innerText = '⚡';
+                }, 1200);
+            }
+        }
+        
+        // ---------- PREFERENCIAS MODO TEXTO ----------
+        const textos = ['introText', 'temaText', 'beneficiosText', 'planText', 'conclusionText'].map(id => document.getElementById(id));
+        const tituloElem = document.getElementById('bookTitle');
+        function aplicarModo(modo) {
+            const fontSizeText = modo === 'large' ? '1.0rem' : '0.9rem';
+            const fontSizeTitle = modo === 'large' ? '1.6rem' : '1.4rem';
+            textos.forEach(el => { if(el) el.style.fontSize = fontSizeText; });
+            if (tituloElem) tituloElem.style.fontSize = fontSizeTitle;
+        }
+        const modoGuardado = localStorage.getItem('modo_texto_dejate');
+        if (modoGuardado === 'large') {
+            document.querySelector('input[value="large"]').checked = true;
+            aplicarModo('large');
+        } else {
+            document.querySelector('input[value="normal"]').checked = true;
+            aplicarModo('normal');
+        }
+        document.getElementById('saveModeBtn').addEventListener('click', () => {
+            const modo = document.querySelector('input[name="textMode"]:checked').value;
+            localStorage.setItem('modo_texto_dejate', modo);
+            aplicarModo(modo);
+            document.getElementById('prefMsg').innerText = '✅ Modo guardado';
+            setTimeout(() => {
+                if (document.getElementById('prefMsg').innerText === '✅ Modo guardado')
+                    document.getElementById('prefMsg').innerText = '⚡';
+            }, 1500);
+        });
+        
+        // ---------- BÚSQUEDA ----------
+        function buscar() {
+            let entrada = document.getElementById('bookInput').value.toLowerCase();
+            if (entrada.includes('deja') || entrada.includes('dispenza') || entrada.includes('romper') || entrada.includes('habito')) {
+                mostrarAnalisis();
+                document.getElementById('prefMsg').innerText = '📖 Análisis cargado';
+            } else {
+                mostrarAnalisis();
+                document.getElementById('prefMsg').innerText = '📖 Análisis principal';
+            }
+            setTimeout(() => {
+                if (document.getElementById('prefMsg').innerText.includes('📖'))
+                    document.getElementById('prefMsg').innerText = '⚡';
+            }, 1500);
+        }
+        
+        document.getElementById('searchBtn').addEventListener('click', buscar);
+        document.getElementById('bookInput').addEventListener('keypress', (e) => { if(e.key === 'Enter') buscar(); });
+        document.getElementById('audioBtn').addEventListener('click', hablar);
+        document.getElementById('stopBtn').addEventListener('click', detener);
+        
+        // ---------- PROTECCIÓN ANTI-COPIA (simple y ligera) ----------
+        (function antiCopy() {
+            // Bloquear clic derecho
+            document.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                return false;
+            });
+            // Bloquear atajos de teclado (Ctrl+C, Ctrl+U, Ctrl+S, F12)
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 's' || e.key === 'C' || e.key === 'U' || e.key === 'S')) {
+                    e.preventDefault();
+                    const msg = document.createElement('div');
+                    msg.textContent = '🔒 Contenido protegido';
+                    msg.style.cssText = 'position:fixed; bottom:20px; left:20px; background:#333; color:white; padding:6px 14px; border-radius:8px; z-index:9999; font-size:12px; opacity:0.9;';
+                    document.body.appendChild(msg);
+                    setTimeout(() => msg.remove(), 1500);
+                    return false;
+                }
+                if (e.key === 'F12') {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            // Marca de agua invisible (rastreo)
+            const sig = document.createElement('div');
+            sig.style.cssText = 'display:none;';
+            sig.innerText = `© Joe Dispenza · ${new Date().toISOString().slice(0,10)}`;
+            document.body.appendChild(sig);
+        })();
+        
+        // ---------- SERVICE WORKER INLINE ----------
+        if ('serviceWorker' in navigator) {
+            const swCode = `
+                const CACHE = 'dejate-pwa-v2';
+                self.addEventListener('install', e => e.waitUntil(caches.open(CACHE).then(c => c.addAll(['./', self.location.origin + '/']))));
+                self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r => r || fetch(e.request).catch(() => {
+                    if(e.request.mode === 'navigate') return caches.match('./');
+                    return new Response('Offline', {status:404});
+                }))));
+                self.addEventListener('activate', e => e.waitUntil(caches.keys().then(keys => Promise.all(keys.map(k => k !== CACHE && caches.delete(k))))));
+            `;
+            const blob = new Blob([swCode], { type: 'application/javascript' });
+            navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(e => console.warn);
+        }
+        
+        // ---------- MANIFEST INLINE ----------
+        const manifestData = {
+            name: "Deja de ser tú · Joe Dispenza · Cuba",
+            short_name: "Deja de ser tú",
+            start_url: "./",
+            display: "standalone",
+            theme_color: "#1A3652",
+            background_color: "#F0F4F8",
+            icons: [{
+                src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%231A3652;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%234A7A9C;stop-opacity:1' /%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='48' fill='url(%23grad)'/%3E%3Cpath fill='%23F2C94C' d='M35 42 L65 42 L62 58 L38 58 Z'/%3E%3Cpath fill='%23FFFFFF' d='M48 30 L52 30 L52 42 L48 42 Z M48 58 L52 58 L52 70 L48 70 Z'/%3E%3C/svg%3E",
+                sizes: "any",
+                type: "image/svg+xml"
+            }]
+        };
+        const manifestBlob = new Blob([JSON.stringify(manifestData)], { type: 'application/manifest+json' });
+        const manifestLink = document.createElement('link');
+        manifestLink.rel = 'manifest';
+        manifestLink.href = URL.createObjectURL(manifestBlob);
+        document.head.appendChild(manifestLink);
+        
+        // Estado conexión
+        window.addEventListener('online', () => document.getElementById('connStatus').innerHTML = '🟢 En línea');
+        window.addEventListener('offline', () => document.getElementById('connStatus').innerHTML = '📴 Offline (modo avión)');
+        
+        // Inicializar
+        cargarOffline();
+    })();
+</script>
+</body>
+</html>
