@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Deja de ser tú · Joe Dispenza | PWA Cuba</title>
-    <meta name="description" content="Análisis profundo de 'Deja de ser tú' de Joe Dispenza, adaptado al contexto cubano. Neuroplasticidad, meditación y transformación personal. PWA offline.">
-    <!-- Icono SVG inspirado en la portada -->
+    <meta name="description" content="Análisis profundo de 'Deja de ser tú' de Joe Dispenza, adaptado al contexto cubano. PWA con audio offline.">
+    <!-- Icono unificado (mismo que el de la app) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%231A3652;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%234A7A9C;stop-opacity:1' /%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='48' fill='url(%23grad)'/%3E%3Cpath fill='%23F2C94C' d='M35 42 L65 42 L62 58 L38 58 Z'/%3E%3Cpath fill='%23FFFFFF' d='M48 30 L52 30 L52 42 L48 42 Z M48 58 L52 58 L52 70 L48 70 Z'/%3E%3C/svg%3E">
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%231A3652;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%234A7A9C;stop-opacity:1' /%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='48' fill='url(%23grad)'/%3E%3Cpath fill='%23F2C94C' d='M35 42 L65 42 L62 58 L38 58 Z'/%3E%3Cpath fill='%23FFFFFF' d='M48 30 L52 30 L52 42 L48 42 Z M48 58 L52 58 L52 70 L48 70 Z'/%3E%3C/svg%3E">
     <style>
@@ -34,24 +34,7 @@
             padding: 1.2rem 1.5rem;
             text-align: center;
             color: white;
-            position: relative;
         }
-        .help-icon {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            width: 36px;
-            height: 36px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            cursor: pointer;
-            user-select: none;
-        }
-        .help-icon:active { transform: scale(0.95); }
         .header h1 { font-size: 1.5rem; margin-bottom: 0.2rem; }
         .header p { font-size: 0.75rem; opacity: 0.9; }
         .status {
@@ -128,30 +111,47 @@
             color: #8DA1B5;
             border-top: 1px solid #E2E8F0;
         }
-        /* Modal ayuda */
-        .help-modal {
+        /* Pantalla de contraseña */
+        .password-overlay {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 10000;
-            opacity: 0;
-            visibility: hidden;
-            transition: 0.2s;
+            z-index: 20000;
+            backdrop-filter: blur(5px);
         }
-        .help-modal.show { opacity: 1; visibility: visible; }
-        .help-content {
+        .password-box {
             background: white;
-            max-width: 320px;
-            width: 85%;
             border-radius: 32px;
-            padding: 1.5rem;
+            padding: 2rem;
+            text-align: center;
+            max-width: 300px;
+            width: 85%;
+        }
+        .password-box h2 { color: #1A3652; margin-bottom: 1rem; }
+        .password-box input {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 1rem 0;
+            border: 2px solid #DCE3EC;
+            border-radius: 60px;
+            font-size: 1rem;
             text-align: center;
         }
-        .help-content p { font-size: 0.85rem; margin: 0.6rem 0; text-align: left; }
+        .password-box button {
+            background: #2C5282;
+            width: 100%;
+        }
+        .error-msg {
+            color: #C62828;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
         @media (max-width: 600px) {
             body { padding: 0.5rem; }
             .content { padding: 0.9rem; }
@@ -160,9 +160,8 @@
     </style>
 </head>
 <body>
-<div class="app-container">
+<div class="app-container" id="appContainer" style="display: none;">
     <div class="header">
-        <div class="help-icon" id="helpIcon">❔</div>
         <h1>🧠 Deja de ser tú</h1>
         <p>Joe Dispenza · Neuroplasticidad · Transformación</p>
         <div class="status" id="connStatus">🟢 En línea</div>
@@ -176,10 +175,10 @@
             <div class="section"><h3>📋 Plan de acción detallado</h3><p id="planText">—</p></div>
             <div class="section"><h3>🎓 Conclusiones</h3><p id="conclusionText">—</p></div>
             <div class="button-group">
-                <button id="audioBtn">🔊 Escuchar análisis (1000 palabras)</button>
+                <button id="audioBtn">🔊 Escuchar análisis</button>
                 <button id="stopBtn" class="btn-stop">⏹️ Detener</button>
-                <button id="downloadAudioBtn" class="btn-download">📥 Descargar audio (WAV)</button>
-                <button id="shareBtn" class="btn-share">📱 Compartir por WhatsApp</button>
+                <button id="downloadBtn" class="btn-download">📥 Descargar texto</button>
+                <button id="shareBtn" class="btn-share">📱 Compartir</button>
             </div>
         </div>
         <div class="pref-bar">
@@ -189,26 +188,59 @@
             <button id="saveModeBtn">Guardar</button>
             <span id="prefMsg">⚡</span>
         </div>
-        <footer>📴 Offline · Doble clic en ❔ ayuda · Descarga audio y comparte</footer>
-    </div>
-</div>
-
-<!-- Modal ayuda -->
-<div id="helpModal" class="help-modal">
-    <div class="help-content">
-        <h3>❔ Ayuda rápida</h3>
-        <p><strong>🎧 Escuchar:</strong> presiona "Escuchar análisis".</p>
-        <p><strong>📥 Descargar audio:</strong> genera un archivo WAV con la voz de tu dispositivo.</p>
-        <p><strong>📱 Compartir:</strong> envía el texto completo por WhatsApp/Telegram.</p>
-        <p><strong>📖 Modo grande:</strong> activa "Grande" y guarda.</p>
-        <p><strong>📴 Offline:</strong> funciona sin internet.</p>
-        <button id="closeHelpBtn">Entendido</button>
+        <footer>📴 Offline · Contraseña: Cuba2025 · Instálala como app</footer>
     </div>
 </div>
 
 <script>
     (function(){
-        // ---------- CONTENIDO COMPLETO (1000 palabras) ----------
+        // ========== CONTRASEÑA ==========
+        const CLAVE_CORRECTA = "Cuba2025";
+        const STORAGE_AUTH = "pwa_auth_dejate";
+        
+        function verificarPassword() {
+            const autenticado = localStorage.getItem(STORAGE_AUTH);
+            if (autenticado === "true") {
+                document.getElementById('appContainer').style.display = 'block';
+                iniciarApp();
+                return;
+            }
+            mostrarPantallaPassword();
+        }
+        
+        function mostrarPantallaPassword() {
+            const overlay = document.createElement('div');
+            overlay.className = 'password-overlay';
+            overlay.id = 'passwordOverlay';
+            overlay.innerHTML = `
+                <div class="password-box">
+                    <h2>🔒 Acceso protegido</h2>
+                    <p>Ingresa la contraseña para acceder al contenido</p>
+                    <input type="password" id="passwordInput" placeholder="Contraseña" autocomplete="off">
+                    <button id="unlockBtn">Desbloquear</button>
+                    <div id="passError" class="error-msg"></div>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+            
+            document.getElementById('unlockBtn').addEventListener('click', () => {
+                const pass = document.getElementById('passwordInput').value;
+                if (pass === CLAVE_CORRECTA) {
+                    localStorage.setItem(STORAGE_AUTH, "true");
+                    overlay.remove();
+                    document.getElementById('appContainer').style.display = 'block';
+                    iniciarApp();
+                } else {
+                    document.getElementById('passError').innerText = '❌ Contraseña incorrecta';
+                }
+            });
+            
+            document.getElementById('passwordInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') document.getElementById('unlockBtn').click();
+            });
+        }
+        
+        // ========== CONTENIDO DEL LIBRO ==========
         const tituloFijo = "Deja de ser tú (Breaking the Habit of Being Yourself) · Joe Dispenza";
         
         const introduccion = `"Deja de ser tú" es una obra revolucionaria del Dr. Joe Dispenza, quiropráctico y neurocientífico. Publicado originalmente en dos mil doce, el libro explica cómo la neuroplasticidad nos permite romper con los patrones automáticos de pensamiento y emoción que nos mantienen atrapados en la misma versión de nosotros mismos. Para el lector cubano, este mensaje cobra una fuerza especial: en un entorno donde los recursos externos son limitados, la herramienta más poderosa de transformación está en la mente. Dispenza no ofrece recetas mágicas, sino un método basado en la meditación, la repetición consciente y la reconexión emocional. Aceptar que podemos cambiar nuestra personalidad es el primer paso para dejar de sobrevivir y empezar a vivir con propósito.`;
@@ -223,6 +255,10 @@
         
         function obtenerTextoCompleto() {
             return `Título: ${tituloFijo}\n\n📖 INTRODUCCIÓN:\n${introduccion}\n\n🎯 TEMÁTICA PRINCIPAL:\n${tematica}\n\n✅ BENEFICIOS (CONTEXTO CUBANO):\n${beneficios}\n\n📋 PLAN DE ACCIÓN DETALLADO:\n${planAccion}\n\n🎓 CONCLUSIONES:\n${conclusion}`;
+        }
+        
+        function obtenerTextoParaAudio() {
+            return `${tituloFijo}. Introducción: ${introduccion}. Temática principal: ${tematica}. Beneficios en contexto cubano: ${beneficios}. Plan de acción: ${planAccion}. Conclusiones: ${conclusion}`;
         }
         
         function mostrarAnalisis() {
@@ -250,38 +286,20 @@
             }
         }
         
-        // ---------- DOBLE CLIC AYUDA ----------
-        const helpIcon = document.getElementById('helpIcon');
-        const helpModal = document.getElementById('helpModal');
-        const closeHelpBtn = document.getElementById('closeHelpBtn');
-        let clickTimer = null;
-        helpIcon.addEventListener('click', () => {
-            if (clickTimer) {
-                clearTimeout(clickTimer);
-                clickTimer = null;
-                helpModal.classList.add('show');
-            } else {
-                clickTimer = setTimeout(() => { clickTimer = null; }, 200);
-            }
-        });
-        closeHelpBtn.addEventListener('click', () => helpModal.classList.remove('show'));
-        helpModal.addEventListener('click', (e) => { if (e.target === helpModal) helpModal.classList.remove('show'); });
-        
-        // ---------- AUDIO CON SPEECHSYNTHESIS (solo reproducción) ----------
+        // ========== AUDIO ==========
         const synth = window.speechSynthesis;
         let utteranceActual = null;
         
-        function obtenerTextoParaAudio() {
-            return `Libro: ${tituloFijo}. Introducción: ${introduccion}. Temática principal: ${tematica}. Beneficios en contexto cubano: ${beneficios}. Plan de acción detallado: ${planAccion}. Conclusiones: ${conclusion}`;
-        }
-        
         function hablar() {
-            if (synth.speaking || synth.pending) synth.cancel();
+            if (synth.speaking || synth.pending) {
+                synth.cancel();
+            }
             const texto = obtenerTextoParaAudio();
             if (!texto.trim()) return;
             const utterance = new SpeechSynthesisUtterance(texto);
             utterance.lang = 'es-ES';
-            utterance.rate = 0.88;
+            utterance.rate = 0.85;
+            utterance.pitch = 1.0;
             utterance.onend = () => { utteranceActual = null; };
             utterance.onerror = () => { utteranceActual = null; };
             utteranceActual = utterance;
@@ -305,56 +323,10 @@
             }
         }
         
-        // ---------- DESCARGA DE AUDIO (WAV) USANDO MEDIARECORDER + SPEECHSYNTHESIS ----------
-        let mediaRecorder = null;
-        let audioChunks = [];
-        let isRecording = false;
-        
-        async function descargarAudioWAV() {
-            if (isRecording) {
-                document.getElementById('prefMsg').innerText = '⚠️ Ya se está generando audio';
-                return;
-            }
-            // Detener cualquier reproducción actual
-            if (synth.speaking || synth.pending) synth.cancel();
-            
-            const texto = obtenerTextoParaAudio();
-            if (!texto.trim()) return;
-            
-            // Crear un stream de audio a partir del SpeechSynthesis
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            // Nota: Esto requiere permiso del micrófono. Alternativa: usar AudioContext + trabajo más complejo.
-            // Para simplificar y evitar permisos, usamos una técnica más directa: generar un archivo de texto narrado no es posible sin permisos.
-            // En su lugar, usamos Web Audio API para grabar la salida del sistema (no es estándar).
-            // Implementación más sencilla y sin permisos: descargar el texto plano. Pero el usuario pidió audio.
-            // Dado que grabar audio del sistema es complejo y requiere permisos, ofrezco una solución funcional con permiso de micrófono.
-            // El usuario deberá aceptar el permiso una sola vez.
-            
-            // Cerramos el stream si no se usa correctamente. Mejor implementación con AudioContext + grabación.
-            // Por simplicidad y para que funcione en la mayoría, redirigimos a descargar el texto y explicamos.
-            // Pero cumpliendo con lo solicitado: ofrezco la opción real de grabar la voz.
-            
-            // Implementación práctica: Creamos un utterance, lo reproducimos y grabamos el audio del sistema usando captureStream
-            // Esto es avanzado. Para garantizar funcionamiento, usamos una librería? No, todo manual.
-            
-            // Tras analizar, la forma más confiable y sin permisos extra es descargar el texto, pero el usuario pidió audio.
-            // Entonces usaremos una técnica que genera un WAV mudo? No. Mejor implementamos la grabación real.
-            
-            // Voy a implementar una solución funcional: generar un Blob de audio a partir de la síntesis usando `AudioContext` y `MediaRecorder` con un stream generado desde un oscilador? No, no tiene sentido.
-            
-            // Dado que la grabación de SpeechSynthesis en un archivo no es directa (requiere capturar la salida del altavoz, lo que necesita permisos adicionales y no es estándar en todos los navegadores), ofrezco la alternativa funcional más cercana:
-            // Descargar el texto y el usuario puede usar cualquier app para convertirlo a audio. Pero como el usuario insistió en audio, implementaré una versión que genera un archivo .txt narrado simulando descarga.
-            
-            // Por ética y funcionalidad real: implemento la descarga de texto como fallback con mensaje claro, pero el botón dirá "Descargar texto (WAV simulado)". No es correcto.
-            
-            // Después de revisar las limitaciones técnicas, la opción más honesta es descargar el texto completo. El audio real requiere permisos y no es 100% fiable.
-            
-            // **DECISIÓN FINAL:** Botón descarga texto, pero manteniendo la promesa de audio, ofrezco una explicación.
-            // Para no engañar, mejor ofrezco descarga de texto + enlace a servicio externo. Pero el usuario pidió B.
-            
-            // Implemento descarga de texto con un mensaje claro.
-            const textoCompleto = obtenerTextoCompleto();
-            const blob = new Blob([textoCompleto], { type: 'text/plain' });
+        // ========== DESCARGA TEXTO ==========
+        function descargarTexto() {
+            const texto = obtenerTextoCompleto();
+            const blob = new Blob([texto], { type: 'text/plain' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
@@ -363,26 +335,35 @@
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-            document.getElementById('prefMsg').innerText = '📄 Texto descargado (audio no disponible sin permisos)';
+            document.getElementById('prefMsg').innerText = '📄 Texto descargado';
             setTimeout(() => {
-                if (document.getElementById('prefMsg').innerText.includes('Texto descargado'))
-                    document.getElementById('prefMsg').innerText = '⚡';
-            }, 3000);
-        }
-        
-        // ---------- COMPARTIR POR WHATSAPP ----------
-        function compartirWhatsApp() {
-            const texto = obtenerTextoCompleto();
-            const url = `https://wa.me/?text=${encodeURIComponent(texto.substring(0, 2000))}`;
-            window.open(url, '_blank');
-            document.getElementById('prefMsg').innerText = '📱 Abriendo WhatsApp...';
-            setTimeout(() => {
-                if (document.getElementById('prefMsg').innerText === '📱 Abriendo WhatsApp...')
+                if (document.getElementById('prefMsg').innerText === '📄 Texto descargado')
                     document.getElementById('prefMsg').innerText = '⚡';
             }, 2000);
         }
         
-        // ---------- PREFERENCIAS MODO TEXTO ----------
+        // ========== COMPARTIR ==========
+        function compartir() {
+            const texto = obtenerTextoCompleto();
+            // Usar Web Share API si está disponible (móviles)
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Deja de ser tú · Joe Dispenza',
+                    text: texto.substring(0, 2000),
+                }).catch(() => {});
+            } else {
+                // Fallback a WhatsApp
+                const url = `https://wa.me/?text=${encodeURIComponent(texto.substring(0, 2000))}`;
+                window.open(url, '_blank');
+            }
+            document.getElementById('prefMsg').innerText = '📱 Compartiendo...';
+            setTimeout(() => {
+                if (document.getElementById('prefMsg').innerText === '📱 Compartiendo...')
+                    document.getElementById('prefMsg').innerText = '⚡';
+            }, 2000);
+        }
+        
+        // ========== PREFERENCIAS MODO TEXTO ==========
         const textos = ['introText', 'temaText', 'beneficiosText', 'planText', 'conclusionText'].map(id => document.getElementById(id));
         const tituloElem = document.getElementById('bookTitle');
         function aplicarModo(modo) {
@@ -391,33 +372,43 @@
             textos.forEach(el => { if(el) el.style.fontSize = fontSizeText; });
             if (tituloElem) tituloElem.style.fontSize = fontSizeTitle;
         }
-        const modoGuardado = localStorage.getItem('modo_texto_dejate');
-        if (modoGuardado === 'large') {
-            document.querySelector('input[value="large"]').checked = true;
-            aplicarModo('large');
-        } else {
-            document.querySelector('input[value="normal"]').checked = true;
-            aplicarModo('normal');
+        
+        // ========== INICIAR APP ==========
+        function iniciarApp() {
+            cargarOffline();
+            
+            const modoGuardado = localStorage.getItem('modo_texto_dejate');
+            if (modoGuardado === 'large') {
+                document.querySelector('input[value="large"]').checked = true;
+                aplicarModo('large');
+            } else {
+                document.querySelector('input[value="normal"]').checked = true;
+                aplicarModo('normal');
+            }
+            
+            document.getElementById('saveModeBtn').addEventListener('click', () => {
+                const modo = document.querySelector('input[name="textMode"]:checked').value;
+                localStorage.setItem('modo_texto_dejate', modo);
+                aplicarModo(modo);
+                document.getElementById('prefMsg').innerText = '✅ Modo guardado';
+                setTimeout(() => {
+                    if (document.getElementById('prefMsg').innerText === '✅ Modo guardado')
+                        document.getElementById('prefMsg').innerText = '⚡';
+                }, 1500);
+            });
+            
+            document.getElementById('audioBtn').addEventListener('click', hablar);
+            document.getElementById('stopBtn').addEventListener('click', detener);
+            document.getElementById('downloadBtn').addEventListener('click', descargarTexto);
+            document.getElementById('shareBtn').addEventListener('click', compartir);
+            
+            // Estado conexión
+            window.addEventListener('online', () => document.getElementById('connStatus').innerHTML = '🟢 En línea');
+            window.addEventListener('offline', () => document.getElementById('connStatus').innerHTML = '📴 Offline');
         }
-        document.getElementById('saveModeBtn').addEventListener('click', () => {
-            const modo = document.querySelector('input[name="textMode"]:checked').value;
-            localStorage.setItem('modo_texto_dejate', modo);
-            aplicarModo(modo);
-            document.getElementById('prefMsg').innerText = '✅ Modo guardado';
-            setTimeout(() => {
-                if (document.getElementById('prefMsg').innerText === '✅ Modo guardado')
-                    document.getElementById('prefMsg').innerText = '⚡';
-            }, 1500);
-        });
         
-        // ---------- EVENTOS BOTONES ----------
-        document.getElementById('audioBtn').addEventListener('click', hablar);
-        document.getElementById('stopBtn').addEventListener('click', detener);
-        document.getElementById('downloadAudioBtn').addEventListener('click', descargarAudioWAV);
-        document.getElementById('shareBtn').addEventListener('click', compartirWhatsApp);
-        
-        // ---------- PROTECCIÓN ANTI-COPIA ----------
-        (function antiCopy() {
+        // ========== PROTECCIÓN ANTI-COPIA ==========
+        function activarAntiCopy() {
             document.addEventListener('contextmenu', (e) => e.preventDefault());
             document.addEventListener('keydown', (e) => {
                 if (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 's')) {
@@ -431,28 +422,32 @@
                 }
                 if (e.key === 'F12') e.preventDefault();
             });
-        })();
+        }
         
-        // ---------- SERVICE WORKER ----------
+        // ========== SERVICE WORKER Y MANIFEST ==========
         if ('serviceWorker' in navigator) {
             const swCode = `
-                const CACHE = 'dejate-pwa-v3';
+                const CACHE = 'dejate-pwa-v5';
                 self.addEventListener('install', e => e.waitUntil(caches.open(CACHE).then(c => c.addAll(['./', self.location.origin + '/']))));
                 self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r => r || fetch(e.request).catch(() => {
                     if(e.request.mode === 'navigate') return caches.match('./');
                     return new Response('Offline', {status:404});
                 }))));
                 self.addEventListener('activate', e => e.waitUntil(caches.keys().then(keys => Promise.all(keys.map(k => k !== CACHE && caches.delete(k))))));
+                self.skipWaiting();
             `;
             const blob = new Blob([swCode], { type: 'application/javascript' });
-            navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(e => console.warn);
+            const swUrl = URL.createObjectURL(blob);
+            navigator.serviceWorker.register(swUrl).then(reg => {
+                console.log('SW registrado');
+            }).catch(e => console.warn);
         }
         
-        // ---------- MANIFEST ----------
         const manifestData = {
             name: "Deja de ser tú · Joe Dispenza · Cuba",
             short_name: "Deja de ser tú",
             start_url: "./",
+            scope: "./",
             display: "standalone",
             theme_color: "#1A3652",
             background_color: "#F0F4F8",
@@ -468,11 +463,9 @@
         manifestLink.href = URL.createObjectURL(manifestBlob);
         document.head.appendChild(manifestLink);
         
-        // Estado conexión
-        window.addEventListener('online', () => document.getElementById('connStatus').innerHTML = '🟢 En línea');
-        window.addEventListener('offline', () => document.getElementById('connStatus').innerHTML = '📴 Offline');
-        
-        cargarOffline();
+        // Iniciar
+        verificarPassword();
+        activarAntiCopy();
     })();
 </script>
 </body>
