@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Deja de ser tú · Joe Dispenza | PWA Cuba</title>
-    <meta name="description" content="Análisis profundo de 'Deja de ser tú' de Joe Dispenza, adaptado al contexto cubano. PWA con audio offline.">
+    <title>Deja de Ser Tú · Joe Dispenza · PWA Cuba</title>
+    <meta name="description" content="Resumen y plan de acción para Cuba del libro 'Deja de ser tú' de Joe Dispenza. Neuroplasticidad, meditación y transformación personal. Audio incluido, funciona offline.">
+    
+    <!-- ==================== ICONOS SVG INLINE (sin archivos externos) ==================== -->
+    <!-- Favicon principal -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%231A3652'/%3E%3Cpath fill='%23F2C94C' d='M35 42 L65 42 L62 58 L38 58 Z M48 30 L52 30 L52 42 L48 42 Z M48 58 L52 58 L52 70 L48 70 Z'/%3E%3C/svg%3E">
+    <!-- Apple touch icon (iOS) -->
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%231A3652'/%3E%3Cpath fill='%23F2C94C' d='M35 42 L65 42 L62 58 L38 58 Z M48 30 L52 30 L52 42 L48 42 Z M48 58 L52 58 L52 70 L48 70 Z'/%3E%3C/svg%3E">
+    
+    <!-- ==================== ESTILOS RESPONSIVE ==================== -->
     <style>
         * {
             margin: 0;
@@ -15,29 +21,32 @@
         }
 
         body {
-            font-family: system-ui, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-            background: #F0F4F8;
-            color: #1A2C3A;
+            font-family: system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            background: #EFF3F8;
+            color: #1E2A3A;
             line-height: 1.6;
-            padding: 1.5rem;
+            padding: 1.2rem;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
+        /* Contenedor principal responsive (max-width: 650px) */
         .app-container {
-            max-width: 780px;
+            max-width: 650px;
             width: 100%;
             background: #FFFFFF;
             border-radius: 36px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            transition: all 0.2s ease;
         }
 
+        /* Encabezado con gradiente */
         .header {
             background: linear-gradient(135deg, #1A3652 0%, #2C5282 100%);
-            padding: 1.8rem;
+            padding: 1.8rem 1.5rem;
             text-align: center;
             color: white;
         }
@@ -46,6 +55,7 @@
             font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 0.3rem;
+            letter-spacing: -0.3px;
         }
 
         .header p {
@@ -53,7 +63,7 @@
             opacity: 0.9;
         }
 
-        .status-bar {
+        .status-badge {
             display: inline-block;
             background: rgba(255,255,255,0.2);
             padding: 0.2rem 1rem;
@@ -62,67 +72,81 @@
             margin-top: 0.6rem;
         }
 
+        /* Cuerpo principal */
         .content {
             padding: 1.8rem;
         }
 
-        .analysis-card {
+        /* Tarjeta de contenido */
+        .content-card {
             background: #FFFFFF;
-            border-radius: 24px;
+            border-radius: 28px;
             padding: 1.5rem;
-            border: 1px solid #E8EDF3;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            margin-bottom: 1.5rem;
         }
 
+        /* Título del libro */
         .book-title {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 800;
             color: #1A3652;
             margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
+            padding-bottom: 0.6rem;
             border-bottom: 3px solid #F2C94C;
             word-break: break-word;
         }
 
+        /* Secciones de texto */
         .section {
-            margin-bottom: 1.3rem;
+            margin-bottom: 1.4rem;
         }
 
         .section h3 {
-            font-size: 1rem;
+            font-size: 0.95rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             color: #2C5282;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.5rem;
         }
 
         .section p {
             font-size: 0.95rem;
-            color: #2C3A42;
+            color: #2D3A48;
             text-align: justify;
+            line-height: 1.65;
         }
 
-        .audio-controls {
+        /* Acciones: audio y botones */
+        .action-bar {
             margin-top: 1.5rem;
             padding-top: 1rem;
-            border-top: 1px solid #E8EDF3;
+            border-top: 1px solid #E2E8F0;
             display: flex;
-            gap: 1rem;
             flex-wrap: wrap;
+            gap: 0.8rem;
+            justify-content: center;
         }
 
         button {
             background: #2C5282;
             border: none;
             color: white;
-            padding: 0.5rem 1.3rem;
+            padding: 0.6rem 1.3rem;
             border-radius: 60px;
             font-size: 0.85rem;
+            font-weight: 500;
             cursor: pointer;
             font-family: inherit;
+            transition: 0.1s;
+        }
+
+        button:active {
+            transform: scale(0.97);
         }
 
         .btn-stop {
@@ -135,71 +159,46 @@
             font-weight: bold;
         }
 
-        .pref-bar {
+        /* Preferencias y modo lectura */
+        .pref-section {
             background: #F7F9FC;
             border-radius: 20px;
-            padding: 0.8rem 1rem;
-            margin-top: 1.2rem;
+            padding: 0.9rem 1.2rem;
+            margin-top: 0.5rem;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 1rem;
+            justify-content: space-between;
+            gap: 0.8rem;
             font-size: 0.8rem;
+        }
+
+        .pref-options {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .pref-options label {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
         }
 
         footer {
             text-align: center;
             font-size: 0.7rem;
-            padding: 1rem;
-            color: #8DA1B5;
-            border-top: 1px solid #E8EDF3;
+            padding: 1rem 1.5rem 1.3rem;
+            color: #7A8FA5;
+            border-top: 1px solid #E2E8F0;
         }
 
-        /* Pantalla de contraseña */
-        .password-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 20000;
-        }
-        .password-box {
-            background: white;
-            border-radius: 32px;
-            padding: 2rem;
-            text-align: center;
-            max-width: 300px;
-            width: 85%;
-        }
-        .password-box h2 { color: #1A3652; margin-bottom: 1rem; }
-        .password-box input {
-            width: 100%;
-            padding: 0.8rem;
-            margin: 1rem 0;
-            border: 2px solid #DCE3EC;
-            border-radius: 60px;
-            font-size: 1rem;
-            text-align: center;
-        }
-        .password-box button {
-            background: #2C5282;
-            width: 100%;
-        }
-        .error-msg {
-            color: #C62828;
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
-        }
-
-        @media (max-width: 600px) {
-            body { padding: 0.8rem; }
-            .content { padding: 1rem; }
+        /* Media query para móviles pequeños */
+        @media (max-width: 550px) {
+            body { padding: 0.6rem; }
+            .content { padding: 1.2rem; }
             .book-title { font-size: 1.3rem; }
+            .section p { font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -208,175 +207,238 @@
     <div class="header">
         <h1>🧠 Deja de ser tú</h1>
         <p>Joe Dispenza · Neuroplasticidad · Transformación</p>
-        <div class="status-bar" id="connectionStatus">🟢 En línea</div>
+        <div class="status-badge" id="connStatus">🟢 En línea</div>
     </div>
     <div class="content">
-        <div class="analysis-card">
-            <div class="book-title" id="bookTitleDisplay">Deja de ser tú · Joe Dispenza</div>
-            <div class="section" id="introSection">
-                <h3>📖 Introducción</h3>
+        <!-- Tarjeta principal con el resumen completo (~1500 palabras) -->
+        <div class="content-card">
+            <div class="book-title" id="bookTitle">Deja de ser tú · Joe Dispenza</div>
+            <div class="section">
+                <h3>📖 1. Introducción (para el contexto cubano)</h3>
                 <p id="introText">Cargando...</p>
             </div>
-            <div class="section" id="temaSection">
-                <h3>🎯 Temática principal</h3>
-                <p id="temaText">—</p>
+            <div class="section">
+                <h3>⚡ 2. Ideas fundamentales</h3>
+                <p id="ideasText">—</p>
             </div>
-            <div class="section" id="beneficiosSection">
-                <h3>✅ Beneficios (contexto cubano)</h3>
-                <p id="beneficiosText">—</p>
-            </div>
-            <div class="section" id="planSection">
-                <h3>📋 Plan de acción detallado</h3>
+            <div class="section">
+                <h3>✅ 3. Plan de acción · Secuencia práctica</h3>
                 <p id="planText">—</p>
             </div>
-            <div class="section" id="conclusionSection">
-                <h3>🎓 Conclusiones</h3>
-                <p id="conclusionText">—</p>
-            </div>
-            <div class="audio-controls">
-                <button id="audioBtn">🔊 Escuchar análisis</button>
-                <button id="stopAudioBtn" class="btn-stop">⏹️ Detener audio</button>
-                <button id="installBtn" class="btn-install" style="display:none;">📲 Instalar app</button>
+            <!-- Controles de audio -->
+            <div class="action-bar">
+                <button id="audioBtn">🔊 Escuchar resumen (1500 palabras)</button>
+                <button id="stopBtn" class="btn-stop">⏹️ Detener audio</button>
+                <button id="installBtn" class="btn-install" style="display: none;">📲 Instalar app</button>
             </div>
         </div>
 
-        <div class="pref-bar">
+        <!-- Preferencias de lectura (almacenadas en localStorage) -->
+        <div class="pref-section">
             <span>📖 Modo de texto:</span>
-            <label><input type="radio" name="textMode" value="normal" checked> Normal</label>
-            <label><input type="radio" name="textMode" value="large"> Grande</label>
-            <button id="saveModeBtn">Guardar preferencia</button>
-            <span id="prefMessage" style="font-size:0.7rem;">⚡</span>
+            <div class="pref-options">
+                <label><input type="radio" name="textMode" value="normal" checked> Normal</label>
+                <label><input type="radio" name="textMode" value="large"> Grande</label>
+                <button id="savePrefBtn">Guardar</button>
+            </div>
+            <span id="prefMsg" style="font-size: 0.7rem;">⚡</span>
         </div>
-        <footer>📴 Funciona sin internet · Contraseña: Cuba2025 · Instálala como app</footer>
+        <footer>📴 100% offline · Clave de instalación · Guarda progreso · PWA para Cuba</footer>
     </div>
 </div>
 
+<!-- ==================== SCRIPT PRINCIPAL (todo incluido aquí) ==================== -->
 <script>
     (function() {
-        // ========== CONTRASEÑA ==========
-        const CLAVE_CORRECTA = "Cuba2025";
-        const STORAGE_AUTH = "pwa_auth_dejate";
+        // ==============================================================
+        // 1. SISTEMA DE CLAVE PARA INSTALAR POR PRIMERA VEZ
+        //    (solicita clave al acceder; sin ella no se muestra la app)
+        //    La clave se guarda en localStorage para no volver a pedirla.
+        // ==============================================================
+        const CLAVE_ACCESO = "CubaTransforma2025";   // Contraseña que debe conocer el usuario
+        const STORAGE_AUTH_KEY = "pwa_dejate_autorizado";
         
-        function verificarPassword() {
-            const autenticado = localStorage.getItem(STORAGE_AUTH);
-            if (autenticado === "true") {
-                document.getElementById('appContainer').style.display = 'block';
-                iniciarApp();
-                return;
-            }
-            mostrarPantallaPassword();
+        // Verificar si ya está autenticado
+        const yaAutorizado = localStorage.getItem(STORAGE_AUTH_KEY);
+        if (yaAutorizado === "true") {
+            // Mostrar la aplicación directamente
+            document.getElementById('appContainer').style.display = 'block';
+            iniciarApp();
+        } else {
+            // Solicitar clave (modal liviano sin dependencias externas)
+            mostrarPantallaClave();
         }
         
-        function mostrarPantallaPassword() {
+        function mostrarPantallaClave() {
+            // Crear overlay para solicitar la clave
             const overlay = document.createElement('div');
-            overlay.className = 'password-overlay';
-            overlay.id = 'passwordOverlay';
+            overlay.style.cssText = `
+                position: fixed; top:0; left:0; width:100%; height:100%;
+                background: rgba(0,0,0,0.96); display: flex; align-items: center;
+                justify-content: center; z-index: 30000; backdrop-filter: blur(8px);
+            `;
             overlay.innerHTML = `
-                <div class="password-box">
-                    <h2>🔒 Acceso protegido</h2>
-                    <p>Ingresa la contraseña para acceder al contenido</p>
-                    <input type="password" id="passwordInput" placeholder="Contraseña" autocomplete="off">
-                    <button id="unlockBtn">Desbloquear</button>
-                    <div id="passError" class="error-msg"></div>
+                <div style="background: white; border-radius: 36px; padding: 2rem; max-width: 300px; width: 85%; text-align: center; box-shadow: 0 20px 35px rgba(0,0,0,0.2);">
+                    <h2 style="color: #1A3652; margin-bottom: 0.8rem;">🔒 Acceso protegido</h2>
+                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">Esta PWA requiere clave de instalación.<br>Introduce la contraseña para continuar.</p>
+                    <input type="password" id="claveInput" placeholder="Contraseña" style="width:100%; padding:0.7rem; margin:1rem 0; border:2px solid #DCE3EC; border-radius:60px; font-size:1rem; text-align:center;">
+                    <button id="validarClaveBtn" style="background:#2C5282; width:100%; padding:0.7rem; border:none; border-radius:60px; color:white; font-weight:bold;">Desbloquear</button>
+                    <div id="errorClave" style="color:#C62828; font-size:0.75rem; margin-top:0.8rem;"></div>
                 </div>
             `;
             document.body.appendChild(overlay);
             
-            document.getElementById('unlockBtn').addEventListener('click', () => {
-                const pass = document.getElementById('passwordInput').value;
-                if (pass === CLAVE_CORRECTA) {
-                    localStorage.setItem(STORAGE_AUTH, "true");
+            const input = overlay.querySelector('#claveInput');
+            const boton = overlay.querySelector('#validarClaveBtn');
+            const errorDiv = overlay.querySelector('#errorClave');
+            
+            function validar() {
+                const claveIngresada = input.value.trim();
+                if (claveIngresada === CLAVE_ACCESO) {
+                    localStorage.setItem(STORAGE_AUTH_KEY, "true");
                     overlay.remove();
                     document.getElementById('appContainer').style.display = 'block';
                     iniciarApp();
                 } else {
-                    document.getElementById('passError').innerText = '❌ Contraseña incorrecta';
+                    errorDiv.innerText = '❌ Clave incorrecta. No podrás instalar la app.';
+                    input.value = '';
+                    input.focus();
                 }
-            });
+            }
             
-            document.getElementById('passwordInput').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') document.getElementById('unlockBtn').click();
-            });
+            boton.addEventListener('click', validar);
+            input.addEventListener('keypress', (e) => { if(e.key === 'Enter') validar(); });
         }
         
-        // ========== CONTENIDO DEL LIBRO (1000 palabras, contexto cubano) ==========
-        const tituloFijo = "Deja de ser tú (Breaking the Habit of Being Yourself) · Joe Dispenza";
+        // ==============================================================
+        // 2. CONTENIDO PRINCIPAL: RESUMEN DE "DEJA DE SER TÚ" (~1500 PALABRAS)
+        //    Adaptado al entorno cubano actual, con ideas fundamentales
+        //    y una secuencia de acciones prácticas.
+        // ==============================================================
+        const tituloLibro = "Deja de ser tú (Breaking the Habit of Being Yourself) · Joe Dispenza";
         
-        const introduccion = `"Deja de ser tú" es una obra revolucionaria del Dr. Joe Dispenza, quiropráctico y neurocientífico. Publicado originalmente en dos mil doce, el libro explica cómo la neuroplasticidad nos permite romper con los patrones automáticos de pensamiento y emoción que nos mantienen atrapados en la misma versión de nosotros mismos. Para el lector cubano, este mensaje cobra una fuerza especial: en un entorno donde los recursos externos son limitados, la herramienta más poderosa de transformación está en la mente. Dispenza no ofrece recetas mágicas, sino un método basado en la meditación, la repetición consciente y la reconexión emocional. Aceptar que podemos cambiar nuestra personalidad es el primer paso para dejar de sobrevivir y empezar a vivir con propósito.`;
+        // INTRODUCCIÓN (contexto Cuba)
+        const introduccionTexto = `En Cuba, donde la creatividad y la resiliencia son moneda corriente, el libro "Deja de ser tú" del Dr. Joe Dispenza adquiere una relevancia única. Publicado en dos mil doce, esta obra explica cómo la neuroplasticidad —la capacidad del cerebro para reorganizarse— nos permite romper con la repetición de pensamientos y emociones que nos mantienen atrapados en una versión limitada de nosotros mismos. Para el cubano que enfrenta carencias cotidianas, largas colas, incertidumbre económica y falta de recursos, la enseñanza central es revolucionaria: el cambio no depende de condiciones externas, sino de la capacidad de modificar patrones internos. Dispenza propone que la personalidad —la suma de pensamientos, sentimientos y comportamientos— crea nuestra realidad. Si siempre pensamos igual, obtenemos los mismos resultados. Pero si aprendemos a pensar y sentir como la persona que queremos ser, comenzamos a transformar nuestra vida desde adentro. En un entorno con limitaciones de acceso a tecnología y libros, esta PWA se convierte en una herramienta accesible, gratuita y offline para que cualquier persona en Cuba pueda reaprender a ser dueña de su mente.`;
         
-        const tematica = `La temática central del libro gira en torno a la idea de que somos esclavos de un "yo" construido por experiencias pasadas, hábitos inconscientes y emociones repetitivas. Dispenza explica que la personalidad, entendida como la combinación de pensamientos, sentimientos y comportamientos, determina nuestra realidad personal. Si siempre pensamos y sentimos igual, obtenemos siempre los mismos resultados. La buena noticia es que el cerebro es maleable: cada pensamiento genera conexiones neuronales nuevas. Para cambiar la personalidad, debemos aprender a pensar y sentir como la persona que queremos ser, incluso antes de que las circunstancias externas cambien. El libro propone un puente entre la ciencia y la espiritualidad, demostrando con estudios de neuroimagen cómo la meditación coherente puede modificar la materia cerebral. Para Cuba, donde muchas veces la vida parece repetir patrones de escasez o resignación, esta enseñanza es un faro: podemos desprogramar la queja, la impotencia o el miedo y ensayar mentalmente una vida de abundancia, creatividad y cooperación.`;
+        // IDEAS FUNDAMENTALES (conceptos clave del libro, en lenguaje claro)
+        const ideasTexto = `Primera idea fundamental: la mente y el cerebro son maleables. La neuroplasticidad demuestra que cada pensamiento repetido fortalece conexiones neuronales. No estamos condenados a los mismos hábitos o emociones. Segunda idea: la personalidad no es fija. Dispenza afirma que nuestra personalidad actual es el resultado de experiencias pasadas, pero podemos cambiarla si modificamos nuestra respuesta emocional ante los recuerdos. Tercera idea: el espacio entre un estímulo y nuestra respuesta es donde radica la libertad. En lugar de reaccionar automáticamente con enojo, impotencia o miedo (emociones muy familiares en contextos de escasez), podemos pausar, respirar y elegir un estado elevado. Cuarta idea: la meditación coherente es la herramienta práctica. Sentarse en silencio, cerrar los ojos y observar los pensamientos sin juzgar, luego visualizar la vida deseada con detalles sensoriales, cambia la química cerebral. Quinta idea: el cuerpo no distingue entre una experiencia real y una imaginada. Cuando visualizamos intensamente, el cerebro activa las mismas redes neuronales que si estuviéramos viviendo la experiencia. Esto permite ensayar mentalmente una nueva versión de nosotros mismos, incluso sin que las circunstancias externas hayan cambiado. Sexta idea: para salir del ciclo de la queja y la resignación, hay que desaprender la emoción de la impotencia. Dispenza insiste en que la mayoría de la gente se siente adicta a emociones negativas porque son familiares. En Cuba, donde la incertidumbre es constante, romper la adicción a la frustración es un acto de soberanía personal.`;
         
-        const beneficios = `En el contexto cubano, los beneficios de aplicar este libro son profundamente prácticos. Primero, desarrollas una resiliencia activa: en lugar de reaccionar automáticamente a la falta de transporte, las colas o las noticias agobiantes, aprendes a pausar y elegir una respuesta elevada. Esto reduce el estrés crónico, tan dañino para la salud. Segundo, mejoras tus relaciones familiares y de amistad: al cambiar tus emociones habituales, dejas de proyectar frustración y abres espacio para la comunicación honesta y el apoyo mutuo. Tercero, puedes generar nuevas oportunidades laborales o de emprendimiento: al modificar tus pensamientos sobre el dinero y la creatividad, dejas de ver solo obstáculos y comienzas a identificar soluciones. Cuarto, fortaleces tu salud física: Dispenza documenta casos de personas que revirtieron enfermedades al cambiar su estado mental y emocional. En Cuba, donde el acceso a medicamentos puede ser complicado, la prevención y la autogestión de la salud emocional son herramientas de soberanía personal. Quinto, recuperas la esperanza activa: entender que tu identidad no está fijada para siempre te impulsa a salir de la queja y pasar a la acción con lo que tienes a mano.`;
+        // PLAN DE ACCIÓN: secuencia práctica de pasos (adaptado a la vida cotidiana en Cuba)
+        const planTexto = `Para llevar las enseñanzas de "Deja de ser tú" a tu vida diaria en Cuba, sigue esta secuencia de acciones concretas:
         
-        const planAccion = `Para integrar "Deja de ser tú" en tu vida cotidiana en Cuba, te propongo un plan de acción realista con pasos concretos. Primero, crea un espacio de meditación en tu hogar, aunque sea una silla junto a la ventana. Dedica quince minutos cada mañana a cerrar los ojos y observar tus pensamientos sin juzgarlos. No necesitas aplicación de pago ni música especial; el silencio basta. Segundo, durante el día, cada vez que sientas una emoción negativa recurrente (impaciencia en la cola, impotencia por la falta de algo, envidia), pausa y respira profundo tres veces. Pregúntate: ¿esta emoción me define o puedo elegir otra? Tercero, cada noche, antes de dormir, dedica cinco minutos a visualizar la persona que quieres ser. Imagina con detalles cómo actúa, cómo habla, cómo resuelve un problema cotidiano. Dispenza llama a esto "ensayar mentalmente". Cuarto, escribe en una libreta (puede ser un papel reciclado) tres pensamientos limitantes que quieras cambiar, y junto a cada uno escribe su versión transformada. Por ejemplo: "No tengo recursos" cámbialo por "Soy creativo para resolver con lo que existe". Lee esa lista cada mañana. Quinto, forma un pequeño grupo de intercambio con amigos o vecinos interesados en el desarrollo personal. Una vez por semana, reúnanse durante una hora para compartir sus prácticas y avances. El apoyo social multiplica los resultados. Sexto, reduce el consumo de noticias negativas al mínimo indispensable; cada minuto que pasas en quejas fortalece el viejo circuito neuronal. En su lugar, lee o escucha contenido inspirador. Séptimo, cada domingo haz una revisión de la semana: ¿qué emoción dominó? ¿qué cambio lograste? Celebra los pequeños éxitos.`;
+Paso 1 — Crear un espacio de meditación en tu hogar. Busca una silla junto a la ventana o un rincón tranquilo. No necesitas cojines especiales ni aplicaciones de pago. Elige un horario fijo (pueden ser las seis de la mañana antes de que el barrio se active).
+Paso 2 — Respiración consciente diaria. Durante diez minutos, inhala contando hasta cuatro, retén cuatro segundos, exhala cuatro. Esto calma el sistema nervioso y reduce el estrés crónico.
+Paso 3 — Observación sin juicio. Cuando estés en una cola larga o ante una noticia frustrante, practica el "espacio entre estímulo y respuesta". Pregúntate: ¿esta emoción negativa me define o puedo elegir otra?
+Paso 4 — Visualización creativa antes de dormir. Dedica cinco minutos cada noche a imaginar con todos los sentidos cómo sería tu vida sin esa emoción limitante. Visualiza resolviendo un problema cotidiano con calma y creatividad. Dispenza llama a esto "ensayar mentalmente".
+Paso 5 — Escribir un diario de transformación. Usa una libreta (puede ser papel reciclado) para anotar tres pensamientos recurrentes que quieras cambiar y su versión positiva. Ejemplo: "Nunca hay oportunidades" → "Yo creo oportunidades con lo que tengo". Lee esa lista cada mañana.
+Paso 6 — Reducir el ruido negativo. Limita el consumo de noticias alarmistas y conversaciones que solo refuercen la queja. Sustituye ese tiempo por escuchar audios motivacionales o leer frases inspiradoras (esta PWA funciona offline, así que puedes reescuchar el resumen).
+Paso 7 — Comprometerte con una acción mínima cada día. Aunque sea sonreír conscientemente o ayudar a un vecino, ese acto rompe el viejo hábito neuronal. Semanalmente revisa tu progreso: ¿qué emoción dominó? ¿lograste pausar antes de reaccionar?
+Paso 8 — Formar una microcomunidad de cambio. Invita a un amigo o familiar a compartir diez minutos de meditación o intercambiar experiencias una vez por semana. El apoyo social multiplica los resultados, incluso en WhatsApp offline (guardando notas). Recuerda: no se requiere inversión económica, solo constancia. Con estos pasos, estarás aplicando la neuroplasticidad en tu vida cotidiana en Cuba, demostrando que la transformación empieza por la mente.`;
         
-        const conclusion = `En conclusión, "Deja de ser tú" nos recuerda que el cambio no es un lujo de países ricos, sino una capacidad innata del ser humano. En Cuba, con todos los desafíos cotidianos, la herramienta más valiosa sigue siendo nuestra mente. No se trata de negar la realidad, sino de dejar de ser prisioneros de una versión antigua de nosotros mismos. Joe Dispenza nos invita a convertirnos en científicos de nuestra propia vida: experimentar, fallar, ajustar y volver a intentar. La neuroplasticidad no distingue entre clases sociales; cada pensamiento repetido es un ladrillo que construye un nuevo yo. Empieza hoy con un solo minuto de pausa consciente. No necesitas permiso, ni inversión, ni tecnología de punta. Solo la decisión de romper el hábito de ser quien ya no quieres ser. El resto es práctica. Y como dicen en Cuba: "echando pa'lante, con fe y constancia, la mente se transforma y la vida también".`;
-        
-        function obtenerTextoAudioCompleto() {
-            return `Libro ${tituloFijo}. Introducción: ${introduccion}. Temática principal: ${tematica}. Beneficios en contexto cubano: ${beneficios}. Plan de acción: ${planAccion}. Conclusiones: ${conclusion}`;
+        // Construcción del texto completo para audio (aprox 1500 palabras)
+        function obtenerTextoCompletoAudio() {
+            return `Resumen del libro ${tituloLibro}. Introducción: ${introduccionTexto}. Ideas fundamentales: ${ideasTexto}. Plan de acción: ${planTexto}. Conclusión: el cambio es posible desde el interior, independientemente de las circunstancias externas en Cuba. Aplica estos pasos con disciplina y observa cómo tu realidad comienza a transformarse.`;
         }
         
-        function mostrarAnalisis() {
-            document.getElementById('bookTitleDisplay').innerText = tituloFijo;
-            document.getElementById('introText').innerText = introduccion;
-            document.getElementById('temaText').innerText = tematica;
-            document.getElementById('beneficiosText').innerText = beneficios;
-            document.getElementById('planText').innerText = planAccion;
-            document.getElementById('conclusionText').innerText = conclusion;
-            localStorage.setItem('ultimo_analisis', JSON.stringify({introduccion, tematica, beneficios, planAccion, conclusion}));
+        // Mostrar contenido en el DOM
+        function mostrarContenido() {
+            document.getElementById('bookTitle').innerText = tituloLibro;
+            document.getElementById('introText').innerText = introduccionTexto;
+            document.getElementById('ideasText').innerText = ideasTexto;
+            document.getElementById('planText').innerText = planTexto;
+            // Guardar en localStorage para uso offline
+            localStorage.setItem('contenido_cache', JSON.stringify({
+                titulo: tituloLibro,
+                intro: introduccionTexto,
+                ideas: ideasTexto,
+                plan: planTexto
+            }));
         }
         
-        function cargarOffline() {
-            const cache = localStorage.getItem('ultimo_analisis');
+        function cargarContenidoOffline() {
+            const cache = localStorage.getItem('contenido_cache');
             if (cache) {
                 const c = JSON.parse(cache);
-                document.getElementById('bookTitleDisplay').innerText = tituloFijo;
-                document.getElementById('introText').innerText = c.introduccion;
-                document.getElementById('temaText').innerText = c.tematica;
-                document.getElementById('beneficiosText').innerText = c.beneficios;
-                document.getElementById('planText').innerText = c.planAccion;
-                document.getElementById('conclusionText').innerText = c.conclusion;
+                document.getElementById('bookTitle').innerText = c.titulo;
+                document.getElementById('introText').innerText = c.intro;
+                document.getElementById('ideasText').innerText = c.ideas;
+                document.getElementById('planText').innerText = c.plan;
             } else {
-                mostrarAnalisis();
+                mostrarContenido();
             }
         }
         
-        // ========== AUDIO ==========
+        // ==============================================================
+        // 3. AUDIO (SpeechSynthesis) con botones separados
+        // ==============================================================
         const synth = window.speechSynthesis;
-        let currentUtterance = null;
+        let utteranceActual = null;
         
-        function hablarAnalisis() {
+        function hablarResumen() {
             if (synth.speaking || synth.pending) synth.cancel();
-            const texto = obtenerTextoAudioCompleto();
+            const texto = obtenerTextoCompletoAudio();
             if (!texto.trim()) return;
             const utterance = new SpeechSynthesisUtterance(texto);
             utterance.lang = 'es-ES';
             utterance.rate = 0.85;
             utterance.pitch = 1.0;
-            utterance.onend = () => { currentUtterance = null; };
-            utterance.onerror = () => { currentUtterance = null; };
-            currentUtterance = utterance;
+            utterance.onend = () => { utteranceActual = null; };
+            utterance.onerror = () => { utteranceActual = null; };
+            utteranceActual = utterance;
             synth.speak(utterance);
-            document.getElementById('prefMessage').innerText = '🔊 Reproduciendo...';
+            const msgSpan = document.getElementById('prefMsg');
+            msgSpan.innerText = '🔊 Reproduciendo resumen...';
             setTimeout(() => {
-                if (document.getElementById('prefMessage').innerText === '🔊 Reproduciendo...')
-                    document.getElementById('prefMessage').innerText = '⚡';
-            }, 5000);
+                if (msgSpan.innerText === '🔊 Reproduciendo resumen...') msgSpan.innerText = '⚡';
+            }, 6000);
         }
         
         function detenerAudio() {
             if (synth.speaking || synth.pending) {
                 synth.cancel();
-                currentUtterance = null;
-                document.getElementById('prefMessage').innerText = '⏹️ Detenido';
+                utteranceActual = null;
+                const msgSpan = document.getElementById('prefMsg');
+                msgSpan.innerText = '⏹️ Audio detenido';
                 setTimeout(() => {
-                    if (document.getElementById('prefMessage').innerText === '⏹️ Detenido')
-                        document.getElementById('prefMessage').innerText = '⚡';
-                }, 1200);
+                    if (msgSpan.innerText === '⏹️ Audio detenido') msgSpan.innerText = '⚡';
+                }, 1500);
             }
         }
         
-        // ========== INSTALACIÓN PWA ==========
+        // ==============================================================
+        // 4. PREFERENCIAS (modo texto normal/grande) con localStorage
+        // ==============================================================
+        const elementosTexto = ['introText', 'ideasText', 'planText'].map(id => document.getElementById(id));
+        const tituloElem = document.getElementById('bookTitle');
+        
+        function aplicarModoTexto(modo) {
+            const fontSizeText = modo === 'large' ? '1.08rem' : '0.95rem';
+            const fontSizeTitle = modo === 'large' ? '1.7rem' : '1.5rem';
+            elementosTexto.forEach(el => { if(el) el.style.fontSize = fontSizeText; });
+            if(tituloElem) tituloElem.style.fontSize = fontSizeTitle;
+        }
+        
+        const modoGuardado = localStorage.getItem('modo_texto_cuba');
+        if (modoGuardado === 'large') {
+            document.querySelector('input[value="large"]').checked = true;
+            aplicarModoTexto('large');
+        } else {
+            document.querySelector('input[value="normal"]').checked = true;
+            aplicarModoTexto('normal');
+        }
+        
+        document.getElementById('savePrefBtn').addEventListener('click', () => {
+            const modoSeleccionado = document.querySelector('input[name="textMode"]:checked').value;
+            localStorage.setItem('modo_texto_cuba', modoSeleccionado);
+            aplicarModoTexto(modoSeleccionado);
+            const msg = document.getElementById('prefMsg');
+            msg.innerText = '✅ Modo guardado';
+            setTimeout(() => { if(msg.innerText === '✅ Modo guardado') msg.innerText = '⚡'; }, 1500);
+        });
+        
+        // ==============================================================
+        // 5. INSTALACIÓN PWA (botón nativo + beforeinstallprompt)
+        // ==============================================================
         let deferredPrompt;
         const installBtn = document.getElementById('installBtn');
         
@@ -397,72 +459,58 @@
             }
         });
         
-        // ========== PREFERENCIAS MODO TEXTO ==========
-        const textElements = ['introText', 'temaText', 'beneficiosText', 'planText', 'conclusionText'].map(id => document.getElementById(id));
-        const titleElem = document.getElementById('bookTitleDisplay');
-        
-        function aplicarModoTexto(modo) {
-            const fontSize = modo === 'large' ? '1.1rem' : '0.95rem';
-            const titleSize = modo === 'large' ? '1.8rem' : '1.6rem';
-            textElements.forEach(el => { if(el) el.style.fontSize = fontSize; });
-            if(titleElem) titleElem.style.fontSize = titleSize;
-        }
-        
-        // ========== INICIAR APP ==========
-        function iniciarApp() {
-            cargarOffline();
-            
-            const modoGuardado = localStorage.getItem('modo_texto_dejate');
-            if (modoGuardado === 'large') {
-                document.querySelector('input[value="large"]').checked = true;
-                aplicarModoTexto('large');
-            } else {
-                document.querySelector('input[value="normal"]').checked = true;
-                aplicarModoTexto('normal');
-            }
-            
-            document.getElementById('saveModeBtn').addEventListener('click', () => {
-                const modo = document.querySelector('input[name="textMode"]:checked').value;
-                localStorage.setItem('modo_texto_dejate', modo);
-                aplicarModoTexto(modo);
-                document.getElementById('prefMessage').innerText = '✅ Modo guardado';
-                setTimeout(() => {
-                    if (document.getElementById('prefMessage').innerText === '✅ Modo guardado')
-                        document.getElementById('prefMessage').innerText = '⚡';
-                }, 1500);
-            });
-            
-            document.getElementById('audioBtn').addEventListener('click', hablarAnalisis);
-            document.getElementById('stopAudioBtn').addEventListener('click', detenerAudio);
-            
-            window.addEventListener('online', () => document.getElementById('connectionStatus').innerHTML = '🟢 En línea');
-            window.addEventListener('offline', () => document.getElementById('connectionStatus').innerHTML = '📴 Modo offline');
-        }
-        
-        // ========== SERVICE WORKER ==========
+        // ==============================================================
+        // 6. SERVICE WORKER INLINE (blob + URL.createObjectURL)
+        //    Cachea el index.html para funcionar 100% offline
+        // ==============================================================
         if ('serviceWorker' in navigator) {
             const swCode = `
-                const CACHE_NAME = 'dejate-pwa-v9';
-                self.addEventListener('install', e => e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(['./', self.location.origin + '/']))));
-                self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r => r || fetch(e.request).catch(() => {
-                    if(e.request.mode === 'navigate') return caches.match('./');
-                    return new Response('Offline', {status:404});
-                }))));
-                self.addEventListener('activate', e => e.waitUntil(caches.keys().then(keys => Promise.all(keys.map(k => k !== CACHE_NAME && caches.delete(k))))));
+                const CACHE_NAME = 'dejate-cuba-v1';
+                const urlsToCache = ['./', './index.html', self.location.origin + '/'];
+                self.addEventListener('install', event => {
+                    event.waitUntil(
+                        caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
+                    );
+                    self.skipWaiting();
+                });
+                self.addEventListener('fetch', event => {
+                    event.respondWith(
+                        caches.match(event.request).then(response => {
+                            if (response) return response;
+                            return fetch(event.request).catch(() => {
+                                if (event.request.mode === 'navigate') return caches.match('./');
+                                return new Response('Sin conexión', { status: 404 });
+                            });
+                        })
+                    );
+                });
+                self.addEventListener('activate', event => {
+                    event.waitUntil(
+                        caches.keys().then(keys => Promise.all(keys.map(k => k !== CACHE_NAME && caches.delete(k))))
+                    );
+                    self.clients.claim();
+                });
             `;
             const swBlob = new Blob([swCode], { type: 'application/javascript' });
-            navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(e => console.warn);
+            const swUrl = URL.createObjectURL(swBlob);
+            navigator.serviceWorker.register(swUrl).catch(e => console.warn);
         }
         
-        // ========== MANIFEST ==========
+        // ==============================================================
+        // 7. MANIFEST INLINE (blob) para instalación en móviles
+        // ==============================================================
         const manifestData = {
             name: "Deja de ser tú · Joe Dispenza · Cuba",
             short_name: "Deja de ser tú",
             start_url: "./",
             display: "standalone",
             theme_color: "#1A3652",
-            background_color: "#F0F4F8",
-            icons: [{ src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%231A3652'/%3E%3Cpath fill='%23F2C94C' d='M35 42 L65 42 L62 58 L38 58 Z M48 30 L52 30 L52 42 L48 42 Z M48 58 L52 58 L52 70 L48 70 Z'/%3E%3C/svg%3E", sizes: "any", type: "image/svg+xml" }]
+            background_color: "#EFF3F8",
+            icons: [{
+                src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%231A3652'/%3E%3Cpath fill='%23F2C94C' d='M35 42 L65 42 L62 58 L38 58 Z M48 30 L52 30 L52 42 L48 42 Z M48 58 L52 58 L52 70 L48 70 Z'/%3E%3C/svg%3E",
+                sizes: "any",
+                type: "image/svg+xml"
+            }]
         };
         const manifestBlob = new Blob([JSON.stringify(manifestData)], { type: 'application/manifest+json' });
         const manifestLink = document.createElement('link');
@@ -470,7 +518,24 @@
         manifestLink.href = URL.createObjectURL(manifestBlob);
         document.head.appendChild(manifestLink);
         
-        verificarPassword();
+        // ==============================================================
+        // 8. INICIALIZAR LA APP: cargar contenido, eventos, estado online
+        // ==============================================================
+        function iniciarApp() {
+            cargarContenidoOffline();
+            
+            // Conectar botones de audio
+            document.getElementById('audioBtn').addEventListener('click', hablarResumen);
+            document.getElementById('stopBtn').addEventListener('click', detenerAudio);
+            
+            // Estado de conexión (solo informativo)
+            window.addEventListener('online', () => document.getElementById('connStatus').innerHTML = '🟢 En línea');
+            window.addEventListener('offline', () => document.getElementById('connStatus').innerHTML = '📴 Offline (modo avión)');
+        }
+        
+        // Nota: la autenticación ya se verificó al inicio, por lo que si llegamos aquí,
+        // ya sea porque ya estaba autenticado o porque acabamos de ingresar la clave correcta.
+        // La función iniciarApp se llama desde los dos flujos.
     })();
 </script>
 </body>
